@@ -1,0 +1,18 @@
+/* O código CSS anterior permanece o mesmo */
+
+.about-section {
+    background-color: #333;
+    padding: 50px 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.6;
+}
