@@ -5,17 +5,17 @@ from flask import render_template
 @app.route('/index')
 
 def index():
-    return render_template('index.html', tittle = 'Início')
+    return render_template('index.html', title = 'Início')
 
 @app.route('/sobre')
 def sobre():
-    return render_template('sobre.html', tittle = 'Sobre')
+    return render_template('sobre.html', title = 'Sobre')
 
 @app.route('/projeto')
 def projeto():
-    return render_template('projeto.html', tittle = 'projeto')
+    return render_template('projeto.html', title = 'projeto')
 
 @app.route('/contato')
 def contato():
-    return render_template('contato.html', tittle = 'contato')
+    return render_template('contato.html', title = 'contato')
 
