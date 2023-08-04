@@ -46,3 +46,16 @@ Ele deve exibir a versão do Flask que foi instalada, indicando que a instalaç�
 Com o Flask instalado, você está pronto para começar a criar suas aplicações web. Lembre-se de ativar o ambiente virtual sempre que você estiver trabalhando em seu projeto Flask. Quando você terminar, pode desativar o ambiente virtual usando o comando deactivate.
 
 Agora você pode prosseguir com o desenvolvimento de sua aplicação web Flask!
+
+Quinto passo: Para instalar as dependencia desse projeto , use o comando abaixo:
+
+```bash
+pip install -r requirements.txt
+```
+
+Sexto Passo: Se você aprimorou o projeto, contribua adicionando as dependencias que utilizou com o comando abaixo:
+```bash
+pip freeze > requirements.txt
+```
+
+

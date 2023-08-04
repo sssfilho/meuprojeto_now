@@ -1,9 +1,41 @@
 {% extends 'base.html' %}
+{% block content %}
 
-<section id='contato'>
-    <h2>Contato</h2>
-    <p>Você pode entrar em contato comigo através do seguinte e-mail: [seu_email@example.com].</p>
-</section>
+
+<div class="conteudo">
+    <h1 class="mb-4">Entre em Contato</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for messagem in messages %}
+       {{ messagem }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% if dados_formulario %}
+  <p>Dados do Formulário:</p>
+  <p>Nome: {{ dados_formulario.nome }}</p>
+  <p>Email: {{ dados_formulario.email }}</p>
+  <p>Telefone: {{ dados_formulario.telefone }}</p>
+  <p>Conteúdo: {{ dados_formulario.conteudo }}</p>
+
+{% endif %}
+<br>
+        <form action="/contato" method="post">
+            {{formulario.csrf_token}}
+                <label for="nome">Nome:</label>
+                {{formulario.nome}}
+                <label for="telefone">telefone:</label>
+                {{formulario.telefone}}
+                <label for="name">email:</label>
+                {{formulario.email}}
+                <label for="conteudo">Mensagem:</label>
+                {{formulario.conteudo}}
+            {{formulario.enviar}}
+        </form>   
+</div>  
+{% endblock %}
+
 
 
 
