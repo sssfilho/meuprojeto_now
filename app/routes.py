@@ -1,6 +1,7 @@
-from app import app 
+from app import app, db
 from flask import render_template, url_for, flash, redirect, request
 from app.forms import Contato
+from app.models import ContatoModels
 import time 
 
 @app.route('/')
@@ -22,19 +23,17 @@ def projeto():
 def contato():
     dados_formulario = None
     formulario = Contato()
-    if request.method == 'POST':
+    if formulario.validate_on_submit:
         flash('SEU FORMULARIO FOI ENVIADO COM SUCESSO !!!')
-        nome = request.form.get('nome')
-        email = request.form.get('email')
-        telefone = request.form.get('telefone')
-        conteudo = request.form.get('conteudo')
+        nome = formulario.nome.data
+        email = formulario.email.data
+        telefone = formulario.telefone.data
+        conteudo = formulario.conteudo.data
+        novo_contato = ContatoModels(nome=nome, email=email, telefone=telefone, conteudo=conteudo)
+        db.session.add(novo_contato)
+        db.session.commit()
 
-        dados_formulario = {
-            'nome': nome,
-            'email': email,
-            'telefone': telefone,
-            'conteudo': conteudo
-        }
+
         
     return render_template('contato.html', title='Contato', formulario = formulario, dados_formulario = dados_formulario)
         
