@@ -1,39 +1,57 @@
 {% extends 'base.html' %}
+
 {% block content %}
+<section id="Contato" class="py-5">
+    <div class="container">
+        <h1 class="mb-4 text-center">Entre em Contato</h1>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-info">
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% endwith %}
 
+                {% if dados_formulario %}
+                    <div class="alert alert-success">
+                        <p>Dados do Formulário:</p>
+                        <p><strong>Nome:</strong> {{ dados_formulario.nome }}</p>
+                        <p><strong>Email:</strong> {{ dados_formulario.email }}</p>
+                        <p><strong>Telefone:</strong> {{ dados_formulario.telefone }}</p>
+                        <p><strong>Conteúdo:</strong> {{ dados_formulario.conteudo }}</p>
+                    </div>
+                {% endif %}
 
-<div class="conteudo">
-    <h1 class="mb-4">Entre em Contato</h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for messagem in messages %}
-       {{ messagem }}
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
-
-  {% if dados_formulario %}
-  <p>Dados do Formulário:</p>
-  <p>Nome: {{ dados_formulario.nome }}</p>
-  <p>Email: {{ dados_formulario.email }}</p>
-  <p>Telefone: {{ dados_formulario.telefone }}</p>
-  <p>Conteúdo: {{ dados_formulario.conteudo }}</p>
-
-{% endif %}
-<br>
-        <form action="/contato" method="post">
-            {{formulario.csrf_token}}
-                <label for="nome">Nome:</label>
-                {{formulario.nome}}
-                <label for="telefone">telefone:</label>
-                {{formulario.telefone}}
-                <label for="name">email:</label>
-                {{formulario.email}}
-                <label for="conteudo">Mensagem:</label>
-                {{formulario.conteudo}}
-            {{formulario.enviar}}
-        </form>   
-</div>  
+                <form action="/contato" method="post">
+                    {{ formulario.csrf_token }}
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        {{ formulario.nome(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone:</label>
+                        {{ formulario.telefone(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        {{ formulario.email(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="conteudo">Mensagem:</label>
+                        {{ formulario.conteudo(class="form-control", rows="4") }}
+                    </div>
+                    {{ formulario.enviar(class="btn btn-primary") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 

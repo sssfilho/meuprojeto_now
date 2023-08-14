@@ -23,7 +23,7 @@ def projeto():
 def contato():
     dados_formulario = None
     formulario = Contato()
-    if formulario.validate_on_submit:
+    if formulario.validate_on_submit():
         flash('SEU FORMULARIO FOI ENVIADO COM SUCESSO !!!')
         nome = formulario.nome.data
         email = formulario.email.data
@@ -37,6 +37,10 @@ def contato():
         
     return render_template('contato.html', title='Contato', formulario = formulario, dados_formulario = dados_formulario)
         
+
+@app.route('/teste')    
+def teste():
+    return render_template('teste.html')
         
    
 
