@@ -1,48 +1,33 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block conteudo %}
 
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="alert alert-info">
-            <ul>
-                {% for message in messages %}
-                  {{ message }}
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-{% endwith %}
-
-<!DOCTYPE html>
 <section class="main-content">
-    <h2 class="mb-4">Login</h2>
-    <form action="{{ url_for('login') }}" method="post" class="needs-validation" novalidate>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-        <div class="invalid-feedback">
-          Por favor, insira um email válido.
-        </div>
+  
+  <h2 class="mb-4">Login</h2>
+  <form action="{{ url_for('login') }}" method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" required>
+      <div class="invalid-feedback">
+        Por favor, insira um email válido.
       </div>
-      
-      <div class="form-group">
-        <label for="senha">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha" required>
-        <div class="invalid-feedback">
-          Por favor, insira a senha.
-        </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="senha">Senha</label>
+      <input type="password" class="form-control" id="senha" name="senha" required>
+      <div class="invalid-feedback">
+        Por favor, insira a senha.
       </div>
-      
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="lembrarUsuario" name="lembrarUsuario">
-        <label class="form-check-label" for="lembrarUsuario">Lembrar Usuário</label>
-      </div>
-      
-      <button class="btn btn-primary" type="submit">Entrar</button>
-    </form>
-  </section>
-
-
+    </div>
+    
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="lembrarUsuario" name="lembrarUsuario">
+      <label class="form-check-label" for="lembrarUsuario">Lembrar Usuário</label>
+    </div>
+    
+    <button class="btn btn-primary" type="submit">Entrar</button>
+  </form>
+</section>
 {% endblock %}
