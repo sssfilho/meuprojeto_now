@@ -25,7 +25,7 @@ def contatos():
         novo_contato = ContatoModels(nome=nome,email=email,mensagem=mensagem)
         db.session.add(novo_contato)
         db.session.commit()
-    return render_template('contatos.html', titulo = 'Contatos',formulario = formulario)
+    return render_template('contato.html', titulo = 'Contato',formulario = formulario)
 @app.route('/sobre')
 def sobre():
     return render_template('sobre.html', titulo = 'Sobre')
@@ -48,8 +48,14 @@ def cadastro():
             sobrenome = cadastro.sobrenome.data
             email = cadastro.email.data
             senha = cadastro.senha.data
+            rua = cadastro.rua.data
+            bairro = cadastro.bairro.data
+            cidade = cadastro.cidade.data
+            cpf = cadastro.cpf.data
+            telefone = cadastro.telefone.data  
+
             hash_senha = bcrypt.generate_password_hash(senha).decode('utf-8')
-            novo_cadastro = CadastroModel(nome=nome, sobrenome=sobrenome, email=email, senha=hash_senha)
+            novo_cadastro = CadastroModel(nome=nome, sobrenome=sobrenome, email=email, senha=hash_senha, rua=rua, bairro=bairro, cidade=cidade, cpf=cpf, telefone=telefone)
             db.session.add(novo_cadastro)
             db.session.commit()
             flash('Seu cadastro foi realizado com sucesso!')
@@ -67,10 +73,15 @@ def login():
         user = CadastroModel.query.filter_by(email=email).first()
         
         if user and check_password_hash(user.senha, senha):
+
             session['email'] = user.email  
             session['nome'] = user.nome
             session['sobrenome'] = user.sobrenome
             session['senha'] = user.senha
+            session['rua'] =  user.rua
+            session['bairro'] = user.bairro
+            session['cidade'] = user.cidade
+            session['cpf'] = user.cpf
             flash('Seja bem vindo')
             return redirect(url_for('index')) 
         else:
@@ -90,7 +101,13 @@ def editar():
     if request.method == 'POST':
         usuario.nome = request.form.get('nome')
         usuario.sobrenome = request.form.get('sobrenome')
+
         usuario.email = request.form.get('email')
+        usuario.telefone = request.form.get('telefone')
+        usuario.rua = request.form.get('rua')
+        usuario.bairro = request.form.get('bairro')
+        usuario.cidade = request.form.get ('cidade')
+        usuario.cpf = request.form.get('cpf')
         senha = request.form.get('senha')
         usuario.senha = bcrypt.generate_password_hash(senha).decode('utf-8')
         db.session.commit()
@@ -98,5 +115,25 @@ def editar():
         session['nome'] = usuario.nome
         session['sobrenome'] = usuario.sobrenome
         session['senha'] = usuario.senha
+        session['rua'] =  usuario.rua
+        session['bairro'] = usuario.bairro
+        session['cidade'] = usuario.cidade
+        session['cpf'] = usuario.cpf
         flash('Seus dados foram atualizados com sucesso!')
     return render_template('editar.html', titulo= 'Editar', usuario = usuario)
+
+@app.route('/excluir_conta', methods=['GET'])
+def excluir_conta():
+    if 'email' not in session: 
+        return redirect(url_for('login'))
+    
+    usuario = CadastroModel.query.filter_by(email = session['email']).first()
+    db.session.delete(usuario)
+    db.session.commit()
+    session.clear()
+
+    flash('Sua conta foi excluida com sucesso!')
+    return redirect(url_for('cadastro'))
+
+
+
